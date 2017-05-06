@@ -14,8 +14,17 @@ const base = {
       paths.src,
       'node_modules',
     ],
+    extensions: ['.js'],
   },
-  extensions: ['.js'],
+  module: {
+    rules: [{
+      test: /\.js$/,
+      use: {
+        loader: 'babel-loader',
+        options: { cacheDirectory: true },
+      },
+    }],
+  },
 };
 
 const dev = {
