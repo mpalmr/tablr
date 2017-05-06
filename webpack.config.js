@@ -1,9 +1,12 @@
 const path = require('path');
+const webpack = require('webpack');
 const merge = require('webpack-merge');
+const Clean = require('clean-webpack-plugin');
 const Html = require('html-webpack-plugin');
 
 const paths = {
   src: path.resolve('src'),
+  dist: path.resolve('dist'),
 };
 
 const base = {
@@ -36,4 +39,17 @@ const dev = {
   ],
 };
 
-module.exports = env => merge(base, dev);
+const prod = {
+  output: {
+    path: paths.dist,
+    filename: '[name].js',
+  },
+  plugins: [
+    new Clean(path.resolve(paths.dist, '**', '*'), { root: paths.dist }),
+    new webpack.optimize.UglifyJsPlugin(),
+  ],
+};
+
+const environment = { dev, prod };
+
+module.exports = env => merge(base, environment[env]);
