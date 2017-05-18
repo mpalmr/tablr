@@ -1,3 +1,5 @@
+***This library is still VERY incomplete. Do not use this yet.***
+
 # Tablr
 
 Tablr is a lightweight, dependancy free, easy to use data table library.
@@ -11,7 +13,7 @@ Tablr is a lightweight, dependancy free, easy to use data table library.
   - [Page](#page)
   - [Filter](#filter)
 - [Methods](#methods)
-- [Sorting](#sorting)
+- [Sorting Presets](#sorting-presets)
 
 
 
@@ -141,9 +143,9 @@ var advancedFiltering = new Tablr(element, {
 | --- | --- | --- | --- |
 | `data` | `any[][] &#124; Object[]` | `[]` | Data to be rendered as rows in a table. Must be a nested array where each nested array represents a row, and can contain any data type. |
 | `columns` | `Array<Object &#124; string>` | _Required_ | Table schema. [More...](#columns). |
+| `deferRender` | `boolean` | `false` | Whether the table should be rerendered upon adding or removing data from its data set, or if it should wait until the `render` method is called. |
 | `page` | `boolean &#124; Object` | `false` | Set to `true` to enable pagination with default settings. Else pass an Object with specific settings. [More...](#page) |
 | `filter` | `(query: string, row: any[] &$124; Object): boolean &#124; Object` | `false` | If set to a function or an object display an `input[type="text"]` element by the table to be used to filter values. The filter fuction run on the input element's change event, has a `query` parameter which is the value of the input element, and a second parameter for the row. It must return a boolean to determine whether to omit the row or not. [More...](#filter) |
-| `deferRender` | `boolean` | `false` | Whether the table should be rerendered upon adding or removing data from its data set, or if it should wait until the `render` method is called. |
 
 ### `columns`
 | Name | Type | Default | Description |
@@ -169,7 +171,7 @@ var advancedFiltering = new Tablr(element, {
 | `throttle` | `number` | `200` | How frequently to refilter the list. Cannot be set alongside `debounce`. |
 | `debounce` | `number &#124; boolean` | _N/A_ | How long before user input ends before executing the filter. Cannot be set alongside `throttle`. If set to `true` will use a default value of `30`. |
 | `minQueryLength` | `number` | `2` | Minimum length of input value before table can be filtered. |
-| `placeholder` | `string` | `Filter...` | Placeholder text for input element. |
+| `placeholder` | `string` | `'Filter...'` | Placeholder text for input element. |
 | `singlePage` | `boolean` | `false` | If set to `true` the filter will only apply to the currently viewed page. Otherwise it will filter all results and show the maximum amount of items allowed within view. _(Need to figure out what to do about page number)_ |
 
 
@@ -190,4 +192,4 @@ var advancedFiltering = new Tablr(element, {
 
 
 
-## Sorting
+## Sorting Presets
