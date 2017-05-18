@@ -141,38 +141,38 @@ var advancedFiltering = new Tablr(element, {
 
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| `data` | `any[][] &#124; Object[]` | `[]` | Data to be rendered as rows in a table. Must be a nested array where each nested array represents a row, and can contain any data type. |
-| `columns` | `Array<Object &#124; string>` | _Required_ | Table schema. [More...](#columns). |
-| `deferRender` | `boolean` | `false` | Whether the table should be rerendered upon adding or removing data from its data set, or if it should wait until the `render` method is called. |
-| `page` | `boolean &#124; Object` | `false` | Set to `true` to enable pagination with default settings. Else pass an Object with specific settings. [More...](#page) |
-| `filter` | `(query: string, row: any[] &$124; Object): boolean &#124; Object` | `false` | If set to a function or an object display an `input[type="text"]` element by the table to be used to filter values. The filter fuction run on the input element's change event, has a `query` parameter which is the value of the input element, and a second parameter for the row. It must return a boolean to determine whether to omit the row or not. [More...](#filter) |
+| data | `any[][] &#124; Object[]` | `[]` | Data to be rendered as rows in a table. Must be a nested array where each nested array represents a row, and can contain any data type. |
+| columns | array | _Required_ | Table schema. [More...](#columns). |
+| deferRender | boolean | `false` | Whether the table should be rerendered upon adding or removing data from its data set, or if it should wait until the `render` method is called. |
+| page | boolean &#124; object | `false` | Set to `true` to enable pagination with default settings. Else pass an Object with specific settings. [More...](#page) |
+| filter | `(query: string, row: any[] &$124; Object): boolean &#124; Object` | `false` | If set to a function or an object display an `input[type="text"]` element by the table to be used to filter values. The filter fuction run on the input element's change event, has a `query` parameter which is the value of the input element, and a second parameter for the row. It must return a boolean to determine whether to omit the row or not. [More...](#filter) |
 
-### `columns`
+### columns
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| `id` | `string` | Transformed label | If `data` is an object, the key corresponding with the value for this column. If `label` exists for this column, not ID is passed, but `data` is an object, it will transform `Disk Quota` to `diskQuota`. |
-| `label` | `string` | `''` | Text to display in column heading. |
-| `display` | `(a: any) => string` | _N/A_ | By default the display value is the actual cell value. Otherwise the output of the passed function will be. |
-| `sort` | `string &#124; boolean|(a: any, b: any) => number` | _N/A_ | Sorts the entire table by a columns values. [More...](#sorting) |
+| id | string | Transformed label | If `data` is an object, the key corresponding with the value for this column. If `label` exists for this column, not ID is passed, but data is an object, it will transform `Disk Quota` to `diskQuota`. |
+| label | string | `''` | Text to display in column heading. |
+| display | `(a: any): string` | _N/A_ | By default the display value is the actual cell value. Otherwise the output of the passed function will be. |
+| sort | `string &#124; boolean|(a: any, b: any) => number` | _N/A_ | Sorts the entire table by a columns values. [More...](#sorting) |
 
-### `page`
+### page
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| `size` | `number &#124; Array<number&#124;string>` | 25 | The number of items to display at once without going to / from a page. If passed an array, a select menu will appear in the pagination controls with these values. Aside from a number, any string passed into it will count as displaying all rows while using the string as the label. `-1` can also be used and default the label to _All_. |
-| `sizeDefault` | `number` | 25 | If `size` is an array, the default value selected. |
-| `position` | `string` | `'bottom'` | Where the pagination controls are situated relative to the table. Possible values are `top` and `bottom`. |
-| `textBefore` | `string` | `'Showing'` | Text to show _before_ page size select menu if visible. |
-| `textAfter` | `string` | `'of n'` | Text to show _after_ page size select menu if visible. |
+| size | number &#124; array | 25 | The number of items to display at once without going to / from a page. If passed an array, a select menu will appear in the pagination controls with these values. Aside from a number, any string passed into it will count as displaying all rows while using the string as the label. `-1` can also be used and default the label to _All_. |
+| sizeDefault | number | 25 | If `size` is an array, the default value selected. |
+| position | string | `'bottom'` | Where the pagination controls are situated relative to the table. Possible values are `top` and `bottom`. |
+| textBefore | string | `'Showing'` | Text to show _before_ page size select menu if visible. |
+| textAfter | string | `'of n'` | Text to show _after_ page size select menu if visible. |
 
-### `filter`
+### filter
 | Name | Type | Default | Description |
 | --- | --- | --- | --- |
-| `rule` | `(query: string, row: any[] &$124; Object): boolean` | _Required_ | The sorting function that can be passed into the `filter` parameter instead of this object. |
-| `throttle` | `number` | `200` | How frequently to refilter the list. Cannot be set alongside `debounce`. |
-| `debounce` | `number &#124; boolean` | _N/A_ | How long before user input ends before executing the filter. Cannot be set alongside `throttle`. If set to `true` will use a default value of `30`. |
-| `minQueryLength` | `number` | `2` | Minimum length of input value before table can be filtered. |
-| `placeholder` | `string` | `'Filter...'` | Placeholder text for input element. |
-| `singlePage` | `boolean` | `false` | If set to `true` the filter will only apply to the currently viewed page. Otherwise it will filter all results and show the maximum amount of items allowed within view. _(Need to figure out what to do about page number)_ |
+| rule | (query: string, row: any[] &$124; Object): boolean | _Required_ | The sorting function that can be passed into the `filter` parameter instead of this object. |
+| throttle | number | `200` | How frequently to refilter the list. Cannot be set alongside `debounce`. |
+| debounce | number &#124; boolean | _N/A_ | How long before user input ends before executing the filter. Cannot be set alongside `throttle`. If set to `true` will use a default value of `30`. |
+| minQueryLength | number | `2` | Minimum length of input value before table can be filtered. |
+| placeholder | string | `'Filter...'` | Placeholder text for input element. |
+| singlePage | boolean | `false` | If set to `true` the filter will only apply to the currently viewed page. Otherwise it will filter all results and show the maximum amount of items allowed within view. _(Need to figure out what to do about page number)_ |
 
 
 ## Methods
@@ -193,3 +193,6 @@ var advancedFiltering = new Tablr(element, {
 
 
 ## Sorting Presets
+
+| Name | Description |
+|
