@@ -34,16 +34,16 @@ Tablr is a lightweight, dependancy free, easy to use data table library.
 - AJAX polling
 - Validation
 - Handling of unsafe strings / HTML?
-- Filtering
+- Filtering (with AJAX mode?)
 
 
 ## Needs Consideration
 
-- `columns` can be an object
 - Column `id` member which allows for the reference of that column as an ID. Would be required for **ALL** columns
 - Pagination UI
 - Templating of `page.textBefore` and `page.textAfter`
 - By default require call of `render` method unless option `deferRender: true`
+- Tiered sorting
 
 
 
@@ -195,4 +195,7 @@ var advancedFiltering = new Tablr(element, {
 ## Sorting Presets
 
 | Name | Description |
+| --- | --- |
+| string | Sorts in alphabetical order. |
+| number | Sorts in numeric order. |
 |
