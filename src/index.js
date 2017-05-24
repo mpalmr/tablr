@@ -1,2 +1,1 @@
-const a = () => console.log('It works!');
-a();
+module.exports = (a, b) => a * b;

@@ -1,5 +1,7 @@
-describe('example', function () {
-  it('works', function () {
-    assert.strictEqual(1 + 1, 2);
+const src = require('../src');
+
+describe('src', function () {
+  it('multiples', function () {
+    assert.strictEqual(src(3, 2), 6);
   });
 });
