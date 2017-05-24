@@ -4,17 +4,17 @@ const merge = require('webpack-merge');
 const Clean = require('clean-webpack-plugin');
 const Html = require('html-webpack-plugin');
 
-const paths = {
+const dir = {
   src: path.resolve('src'),
   dist: path.resolve('dist'),
 };
 
 const base = {
-  context: paths.src,
+  context: dir.src,
   entry: 'index.js',
   resolve: {
     modules: [
-      paths.src,
+      dir.src,
       'node_modules',
     ],
   },
@@ -30,19 +30,38 @@ const base = {
 };
 
 const dev = {
-  devtool: 'eval-source-map',
+  entry: [
+    'webpack-dev-server/client?http://localhost:8080',
+    'webpack/hot/only-dev-server',
+    'index.js',
+  ],
+  devtool: 'inline-source-map',
   plugins: [
+    new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin({ multistep: true }),
     new Html({ title: 'Tablr &bull; Dev' }),
   ],
+  devServer: {
+    inline: true,
+    hot: true,
+    contentBase: dir.dist,
+    historyApiFallback: true,
+    stats: 'minimal',
+    publicPath: '/',
+  },
+  watchOptions: {
+    aggregateTimeout: 300,
+    poll: 1000,
+  },
 };
 
 const prod = {
   output: {
-    path: paths.dist,
+    path: dir.dist,
     filename: '[name].js',
   },
   plugins: [
-    new Clean(path.resolve(paths.dist, '**', '*'), { root: paths.dist }),
+    new Clean(path.resolve(dir.dist, '**', '*'), { root: dir.dist }),
     new webpack.optimize.UglifyJsPlugin(),
   ],
 };
