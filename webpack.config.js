@@ -32,9 +32,7 @@ const base = {
 const dev = {
   devtool: 'eval-source-map',
   plugins: [
-    new Html({
-      title: 'Tablr &bull; Dev',
-    }),
+    new Html({ title: 'Tablr &bull; Dev' }),
   ],
 };
 

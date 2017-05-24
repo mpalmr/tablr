@@ -4,6 +4,7 @@
   "description": "Dashboard frontend revamp in react",
   "main": "src/index.js",
   "scripts": {
+    "start": "webpack-dev-server --env=dev",
     "build": "webpack --env=prod",
     "test": "karma start"
   },
@@ -32,6 +33,7 @@
     "karma-webpack": "^2.0.3",
     "mocha": "^3.4.2",
     "webpack": "^2.5.1",
+    "webpack-dev-server": "^2.4.5",
     "webpack-merge": "^4.1.0"
   }
 }
