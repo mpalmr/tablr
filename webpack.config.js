@@ -39,7 +39,7 @@ const dev = {
   plugins: [
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin({ multistep: true }),
-    new Html({ title: 'Tablr &bull; Dev' }),
+    new Html({ template: path.resolve('devTemplate.html') }),
   ],
   devServer: {
     inline: true,

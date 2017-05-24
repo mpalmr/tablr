@@ -1,1 +1,3 @@
-module.exports = (a, b) => a * b;
+const Tablr = require('./Tablr');
+
+module.exports = Tablr;
