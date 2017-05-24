@@ -9,6 +9,7 @@ class Tablr {
 
   constructor(elements, options = {}) {
     this.elements = parseElements(elements);
+    this.data = Array.isArray(options) ? options : options.data;
   }
 }
 
