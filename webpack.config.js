@@ -17,7 +17,6 @@ const base = {
       paths.src,
       'node_modules',
     ],
-    extensions: ['.js'],
   },
   module: {
     rules: [{
