@@ -1,6 +1,9 @@
 module.exports = {
-    "extends": "airbnb-base",
-    "plugins": [
-        "import"
-    ]
+  extends: 'airbnb-base',
+  env: {
+		browser: true,
+		es6: true,
+		worker: true,
+	},
+  plugins: ['import'],
 };
