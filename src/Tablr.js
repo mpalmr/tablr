@@ -1,3 +1,5 @@
+const render = require('./render');
+
 function parseElements(elements) {
   if (Array.isArray(elements)) return elements;
   if (elements instanceof NodeList) return Array.from(elements);
@@ -13,9 +15,7 @@ class Tablr {
   }
 
   render() {
-    this.table = document.createElement('table');
-    const tbody = document.createElement('tbody');
-    this.table.appendChild(tbody);
+    this.table = render.table(this.data);
     this.elements.forEach(element => element.appendChild(this.table.cloneNode(true)));
   }
 }
