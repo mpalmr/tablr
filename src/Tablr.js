@@ -5,12 +5,11 @@ function tabularData(tableData, columns) {
   if (Array.isArray(tableData[0])) return tableData;
   return tableData
     .map(rowData => columns
-      .map(column => rowData[column.id]));
+      .map(column => column.displayValue(rowData[column.id])));
 }
 
-const tableColumns = (columns, sort) => columns.map(column => ({
+const tableColumns = columns => columns.map(column => ({
   label: column.label || column.id,
-  onClick: () => sort(column.id),
 }));
 
 class Tablr {
@@ -19,7 +18,7 @@ class Tablr {
     const opts = parseArgs.options(options);
     this.elements = parseArgs.elements(elements);
     this.data = opts.data;
-    this.columns = opts.columns;
+    this.columns = parseArgs.columns(opts.columns);
     this.sortBy = opts.sortBy;
     if (opts.initialRender) this.render();
   }
@@ -31,6 +30,7 @@ class Tablr {
 
     this.elements.forEach(element =>
       element.appendChild(this.table.cloneNode(true)));
+    return this;
   }
 }
 

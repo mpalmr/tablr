@@ -11,7 +11,12 @@ function elements(elems) {
   return Array.from(document.querySelectorAll(elems));
 }
 
+const columns = cols => cols.map(col => Object.assign({
+  displayValue: value => value,
+}, col));
+
 module.exports = {
   options,
   elements,
+  columns,
 };
