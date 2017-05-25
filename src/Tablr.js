@@ -3,6 +3,7 @@ const render = require('./render');
 const parseOptions = options => Object.assign({
   data: Array.isArray(options) ? options : [],
   columns: [],
+  initialRender: true,
 }, options);
 
 function parseElements(elements) {
@@ -30,6 +31,7 @@ class Tablr {
     this.elements = parseElements(elements);
     this.data = opts.data;
     this.columns = opts.columns;
+    if (opts.initialRender) this.render();
   }
 
   render() {

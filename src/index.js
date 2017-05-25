@@ -29,16 +29,19 @@ const tablr = new Tablr('.table', {
   columns: [
     {
       id: 'name',
+      label: 'Name',
     },
     {
       id: 'birthday',
+      label: 'Birthday',
     },
     {
       id: 'diskQuota',
+      label: 'Disk Quota',
     },
   ],
 });
-tablr.render();
+
 window.tablr = tablr;
 
 module.exports = Tablr;
