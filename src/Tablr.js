@@ -14,9 +14,7 @@ class Tablr {
 
   render() {
     this.table = document.createElement('table');
-    const thead = document.createElement('thead');
     const tbody = document.createElement('tbody');
-    this.table.appendChild(thead);
     this.table.appendChild(tbody);
     this.elements.forEach(element => element.appendChild(this.table.cloneNode(true)));
   }
