@@ -1,8 +1,22 @@
-const options = opts => Object.assign({
-  data: Array.isArray(opts) ? opts : [],
-  columns: [],
-  initialRender: true,
-}, opts);
+function options(opts) {
+  function sortBy() {
+    if (typeof opts.sortBy === 'function') return opts.sortBy;
+    if (!opts.sortBy) {
+      if (!Array.isArray(opts.columns) && !opts.columns.length) {
+        if (typeof opts.columns[0].sortBy === 'function') return opts.columns[0].sortBy;
+        return opts.columns[0];
+      }
+    }
+    return (a, b) => a - b;
+  }
+
+  return Object.assign({
+    data: Array.isArray(opts) ? opts : [],
+    columns: [],
+    sortBy: sortBy(),
+    initialRender: true,
+  }, opts);
+}
 
 function elements(elems) {
   if (Array.isArray(elems)) return elems;
@@ -11,9 +25,17 @@ function elements(elems) {
   return Array.from(document.querySelectorAll(elems));
 }
 
-const columns = cols => cols.map(col => Object.assign({
-  displayValue: value => value,
-}, col));
+const columns = cols => cols.map((col) => {
+  function sort(a, b) {
+    if (typeof a === 'string') return a.localeCompare(b);
+    return a - b;
+  }
+
+  return Object.assign({
+    sort,
+    displayValue: value => value,
+  }, col);
+});
 
 module.exports = {
   options,

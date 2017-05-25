@@ -1,17 +1,6 @@
 const parseArgs = require('./parseArgs');
 const render = require('./render');
 
-function tabularData(tableData, columns) {
-  if (Array.isArray(tableData[0])) return tableData;
-  return tableData
-    .map(rowData => columns
-      .map(column => column.displayValue(rowData[column.id])));
-}
-
-const tableColumns = columns => columns.map(column => ({
-  label: column.label || column.id,
-}));
-
 class Tablr {
 
   constructor(elements, options = {}) {
@@ -24,13 +13,20 @@ class Tablr {
   }
 
   render() {
-    const tableData = tabularData(this.data, this.columns);
-    const columns = tableColumns(this.columns);
-    this.table = render.table(tableData, columns);
-
+    const tableColumns = this.columns.map(column => ({
+      label: column.label || column.id,
+    }));
+    this.table = render.table(this.rows(), tableColumns);
     this.elements.forEach(element =>
       element.appendChild(this.table.cloneNode(true)));
     return this;
+  }
+
+  rows() {
+    return this.data
+      .map(row => (Array.isArray(row) ? row : this.columns
+        .map(column => column.displayValue(row[column.id]))))
+      .sort(typeof this.sortBy === 'function' ? this.sortBy : this.sortBy.sort);
   }
 }
 
