@@ -17,6 +17,7 @@ const body = data => data.reduce((tbody, rowData) => {
 const columnHeading = (column) => {
   const th = document.createElement('th');
   th.appendChild(document.createTextNode(column.label));
+  th.addEventListener('click', column.onClick);
   return th;
 };
 

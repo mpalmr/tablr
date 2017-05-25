@@ -1,17 +1,5 @@
+const parseArgs = require('./parseArgs');
 const render = require('./render');
-
-const parseOptions = options => Object.assign({
-  data: Array.isArray(options) ? options : [],
-  columns: [],
-  initialRender: true,
-}, options);
-
-function parseElements(elements) {
-  if (Array.isArray(elements)) return elements;
-  if (elements instanceof NodeList) return Array.from(elements);
-  if (elements instanceof Element) return [elements];
-  return Array.from(document.querySelectorAll(elements));
-}
 
 function tabularData(tableData, columns) {
   if (Array.isArray(tableData[0])) return tableData;
@@ -20,17 +8,19 @@ function tabularData(tableData, columns) {
       .map(column => rowData[column.id]));
 }
 
-const tableColumns = columns => columns.map(column => ({
+const tableColumns = (columns, sort) => columns.map(column => ({
   label: column.label || column.id,
+  onClick: () => sort(column.id),
 }));
 
 class Tablr {
 
   constructor(elements, options = {}) {
-    const opts = parseOptions(options);
-    this.elements = parseElements(elements);
+    const opts = parseArgs.options(options);
+    this.elements = parseArgs.elements(elements);
     this.data = opts.data;
     this.columns = opts.columns;
+    this.sortBy = opts.sortBy;
     if (opts.initialRender) this.render();
   }
 
