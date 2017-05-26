@@ -33,7 +33,7 @@ const table = (data, columns) => {
   return element;
 };
 
-module.exports = {
+export default {
   table,
   head,
   columnHeading,

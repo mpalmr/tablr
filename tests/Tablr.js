@@ -1,4 +1,4 @@
-const Tablr = require('../src/Tablr');
+import Tablr from '../src/Tablr';
 
 describe('Tablr', function () {
 

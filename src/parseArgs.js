@@ -17,7 +17,7 @@ const columns = cols => cols.map(col => Object.assign({
   displayValue: value => value,
 }, col));
 
-module.exports = {
+export default {
   options,
   elements,
   columns,

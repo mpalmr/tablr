@@ -1,4 +1,4 @@
-const Tablr = require('./Tablr');
+import Tablr from './Tablr';
 
 function humanFileSize(bytes, si) {
   const thresh = si ? 1000 : 1024;
@@ -60,4 +60,4 @@ const tablr = new Tablr('.table', {
 
 window.tablr = tablr;
 
-module.exports = Tablr;
+export default Tablr;

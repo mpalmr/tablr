@@ -1,7 +1,7 @@
-const parseArgs = require('./parseArgs');
-const render = require('./render');
+import parseArgs from './parseArgs';
+import render from './render';
 
-class Tablr {
+export default class Tablr {
 
   constructor(elements, options = {}) {
     const opts = parseArgs.options(options);
@@ -27,5 +27,3 @@ class Tablr {
         .map(column => column.displayValue(row[column.id]))));
   }
 }
-
-module.exports = Tablr;
