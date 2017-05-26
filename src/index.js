@@ -56,6 +56,7 @@ const tablr = new Tablr('.table', {
       displayValue: bytes => humanFileSize(bytes, true),
     },
   ],
+  paginate: true,
 });
 
 window.tablr = tablr;

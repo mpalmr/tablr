@@ -1,5 +1,5 @@
 import parseArgs from './parseArgs';
-import render from './render';
+import components from './components';
 
 export default class Tablr {
 
@@ -8,6 +8,7 @@ export default class Tablr {
     this.elements = parseArgs.elements(elements);
     this.data = opts.data;
     this.columns = parseArgs.columns(opts.columns);
+    this.paginate = opts.paginate;
     if (opts.initialRender) this.render();
   }
 
@@ -15,7 +16,8 @@ export default class Tablr {
     const tableColumns = this.columns.map(column => ({
       label: column.label || column.id,
     }));
-    this.table = render.table(this.rows(), tableColumns);
+    this.table = components.table.table(this.rows(), tableColumns);
+    if (this.paginate) this.table.appendChild(components.pagination());
     this.elements.forEach(element =>
       element.appendChild(this.table.cloneNode(true)));
     return this;

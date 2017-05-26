@@ -3,6 +3,7 @@ function options(opts) {
     data: Array.isArray(opts) ? opts : [],
     columns: [],
     initialRender: true,
+    paginate: false,
   }, opts);
 }
 
