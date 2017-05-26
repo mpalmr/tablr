@@ -8,7 +8,6 @@ class Tablr {
     this.elements = parseArgs.elements(elements);
     this.data = opts.data;
     this.columns = parseArgs.columns(opts.columns);
-    this.sortBy = opts.sortBy;
     if (opts.initialRender) this.render();
   }
 
@@ -25,8 +24,7 @@ class Tablr {
   rows() {
     return this.data
       .map(row => (Array.isArray(row) ? row : this.columns
-        .map(column => column.displayValue(row[column.id]))))
-      .sort(typeof this.sortBy === 'function' ? this.sortBy : this.sortBy.sort);
+        .map(column => column.displayValue(row[column.id]))));
   }
 }
 
