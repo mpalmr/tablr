@@ -15,7 +15,7 @@ export default class Tablr {
   render(element) {
     // Container
     this.table = document.createElement('div');
-    this.table.classList.add('tablr-container');
+    this.table.classList.add('tablr');
 
     // Table
     const tableColumns = this.columns.map(column => ({
