@@ -6,6 +6,15 @@ function adjacentButton(classModifier, label) {
   return buttonElement;
 }
 
+function pageSizeButtons(selectedSize, rowAmount) {
+  return Array.from(Array(Math.ceil(rowAmount / selectedSize))).reduce((listElement, a, i) => {
+    const buttonElement = document.createElement('button');
+    buttonElement.appendChild(document.createTextNode(i + 1));
+    listElement.appendChild(buttonElement);
+    return listElement;
+  }, document.createElement('ol'));
+}
+
 function pageSizeSelect(size, textBefore, textAfter) {
   const selectElement = size.reduce((element, a) => {
     const optionElement = document.createElement('option');
@@ -22,9 +31,10 @@ function pageSizeSelect(size, textBefore, textAfter) {
   return labelElement;
 }
 
-export default function pagination(options) {
+export default function pagination(options, rowAmount) {
   const containerElement = document.createElement('div');
   containerElement.appendChild(adjacentButton('previous', 'Previous'));
+  containerElement.appendChild(pageSizeButtons(options.selectedSize, rowAmount));
   containerElement.appendChild(adjacentButton('next', 'Next'));
   containerElement.appendChild(pageSizeSelect(
     options.size, options.textBefore, options.textAfter));

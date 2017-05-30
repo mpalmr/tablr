@@ -6,7 +6,7 @@ function options(opts) {
     ...opts,
     paginate: !opts.paginate ? false : {
       size: [10, 25, 50, 100, 'All'],
-      sizeDefault: 25,
+      selectedSize: 25,
       position: 'bottom',
       textBefore: 'Show',
       textAfter: 'entries',

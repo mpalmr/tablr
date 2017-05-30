@@ -26,7 +26,7 @@ export default class Tablr {
 
     // Pagination
     if (this.paginate) {
-      const controls = components.pagination(this.paginate);
+      const controls = components.pagination(this.paginate, this.rows().length);
       if (this.paginate.position === 'bottom') containerElement.appendChild(controls);
       else containerElement.insertBefore(controls, table);
     }
