@@ -57,7 +57,8 @@ const tablr = new Tablr('.table', {
     },
   ],
   paginate: {
-    selectedSize: 1,
+    size: [1, 2],
+    selectedSize: 2,
   },
 });
 

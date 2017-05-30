@@ -21,7 +21,7 @@ export default class Tablr {
     const tableColumns = this.columns.map(column => ({
       label: column.label || column.id,
     }));
-    const table = components.table.table(this.rows(), tableColumns);
+    const table = components.table.table(this.pages()[this.paginate.selectedPage], tableColumns);
     containerElement.appendChild(table);
 
     // Pagination
@@ -42,5 +42,15 @@ export default class Tablr {
     return this.data
       .map(row => (Array.isArray(row) ? row : this.columns
         .map(column => column.displayValue(row[column.id]))));
+  }
+
+  pages() {
+    if (!this.paginate) return this.rows();
+    return this.rows().reduce((pages, row, i) => {
+      const pageIndex = Math.floor(i / this.paginate.selectedSize);
+      if (!pages[pageIndex]) pages[pageIndex] = [row];
+      else pages[pageIndex].push(row);
+      return pages;
+    }, []);
   }
 }
