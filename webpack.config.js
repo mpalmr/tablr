@@ -3,11 +3,14 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const Clean = require('clean-webpack-plugin');
 const Html = require('html-webpack-plugin');
+const ExtractText = require('extract-text-webpack-plugin');
 
 const dir = {
   src: path.resolve('src'),
   dist: path.resolve('dist'),
 };
+
+const cssBundle = new ExtractText('[name].css');
 
 const base = {
   context: dir.src,
@@ -19,14 +22,37 @@ const base = {
     ],
   },
   module: {
-    rules: [{
-      test: /\.js$/,
-      use: {
-        loader: 'babel-loader',
-        options: { cacheDirectory: true },
+    rules: [
+      {
+        test: /\.js$/,
+        use: {
+          loader: 'babel-loader',
+          options: { cacheDirectory: true },
+        },
       },
-    }],
+      {
+        test: /\.scss$/,
+        use: cssBundle.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: { sourceMap: true },
+            },
+            {
+              loader: 'postcss-loader',
+              options: { sourceMap: true },
+            },
+            {
+              loader: 'sass-loader',
+              options: { sourceMap: true },
+            },
+          ],
+        }),
+      },
+    ],
   },
+  plugins: [cssBundle],
 };
 
 const dev = {

@@ -1,3 +1,4 @@
+import './styles.scss';
 import Tablr from './Tablr';
 
 function humanFileSize(bytes, si) {
