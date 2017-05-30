@@ -12,28 +12,54 @@ export default class Tablr {
     if (opts.initialRender) this.render();
   }
 
-  render() {
+  render(element) {
     // Container
-    const containerElement = document.createElement('div');
-    containerElement.classList.add('tablr-container');
+    this.table = document.createElement('div');
+    this.table.classList.add('tablr-container');
 
     // Table
     const tableColumns = this.columns.map(column => ({
       label: column.label || column.id,
     }));
     const table = components.table.table(this.pages()[this.paginate.selectedPage], tableColumns);
-    containerElement.appendChild(table);
+    this.table.appendChild(table);
 
     // Pagination
     if (this.paginate) {
       const controls = components.pagination(this.paginate, this.rows().length);
-      if (this.paginate.position === 'bottom') containerElement.appendChild(controls);
-      else containerElement.insertBefore(controls, table);
+      if (this.paginate.position === 'bottom') this.table.appendChild(controls);
+      else this.table.insertBefore(controls, table);
     }
 
     // Add to DOM
-    this.elements.forEach(element =>
-      element.appendChild(containerElement.cloneNode(true)));
+    const mount = (mountElement) => {
+      Array.from(mountElement.childNodes).forEach(a => a.remove());
+      mountElement.appendChild(this.table.cloneNode(true));
+      this.addEventHandlers(mountElement);
+    };
+
+    if (element) mount(element);
+    else this.elements.forEach(mountElement => mount(mountElement));
+
+    return this;
+  }
+
+  addEventHandlers(element) {
+    element.querySelector('.tablr-pagination-button_next').addEventListener('click', () => {
+      if (this.paginate.selectedPage < this.pages().length - 1) this.paginate.selectedPage += 1;
+      this.render(element);
+    });
+
+    element.querySelector('.tablr-pagination-button_previous').addEventListener('click', () => {
+      if (this.paginate.selectedPage > 0) this.paginate.selectedPage -= 1;
+      this.render(element);
+    });
+
+    element.querySelector('.tablr-page-jump-buttons').addEventListener('click', (event) => {
+      event.stopPropagation();
+      this.paginate.selectedPage = parseInt(event.target.innerText, 10) - 1;
+      this.render(element);
+    });
 
     return this;
   }

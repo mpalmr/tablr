@@ -7,7 +7,7 @@ function adjacentButton(classModifier, label) {
 }
 
 function pageSizeButtons(selectedSize, pageAmount) {
-  return Array.from(Array(pageAmount)).reduce((listElement, a, i) => {
+  const orderedListElement = Array.from(Array(pageAmount)).reduce((listElement, a, i) => {
     const listItemElement = document.createElement('li');
     const buttonElement = document.createElement('button');
     buttonElement.appendChild(document.createTextNode(i + 1));
@@ -15,6 +15,8 @@ function pageSizeButtons(selectedSize, pageAmount) {
     listElement.appendChild(listItemElement);
     return listElement;
   }, document.createElement('ol'));
+  orderedListElement.classList.add('tablr-page-jump-buttons');
+  return orderedListElement;
 }
 
 function pageSizeSelect(size, textBefore, textAfter) {
