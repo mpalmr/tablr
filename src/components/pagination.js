@@ -38,11 +38,13 @@ function pageSizeSelect(size, textBefore, textAfter) {
 export default function pagination(options, rowAmount) {
   const containerElement = document.createElement('div');
   containerElement.classList.add('tablr-pagination');
+
   containerElement.appendChild(adjacentButton('previous', 'Previous'));
   containerElement.appendChild(pageSizeButtons(
     options.selectedSize, Math.ceil(rowAmount / options.selectedSize)));
   containerElement.appendChild(adjacentButton('next', 'Next'));
   containerElement.appendChild(pageSizeSelect(
     options.size, options.textBefore, options.textAfter));
+
   return containerElement;
 }

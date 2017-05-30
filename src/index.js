@@ -61,6 +61,7 @@ const tablr = new Tablr('.table', {
     size: [1, 2],
     selectedSize: 2,
   },
+  filter: true,
 });
 
 window.tablr = tablr;

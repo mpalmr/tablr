@@ -13,6 +13,15 @@ function options(opts) {
       textAfter: 'entries',
       ...opts.paginate,
     },
+    filter: !opts.filter ? false : {
+      rule: (query, row) => row.name.includes(query),
+      debounce: 300,
+      minQueryLength: 1,
+      placeholder: 'Filter...',
+      singlePage: false,
+      inputValue: '',
+      ...opts.filter,
+    },
   };
 }
 

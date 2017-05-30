@@ -9,6 +9,7 @@ export default class Tablr {
     this.data = opts.data;
     this.columns = parseArgs.columns(opts.columns);
     this.paginate = opts.paginate;
+    this.filtering = opts.filter;
     if (opts.initialRender) this.render();
   }
 
@@ -24,9 +25,15 @@ export default class Tablr {
     const table = components.table.table(this.pages()[this.paginate.selectedPage], tableColumns);
     this.table.appendChild(table);
 
+    // Filtering
+    if (this.filtering) {
+      const controls = components.filter(this.filtering);
+      this.table.insertBefore(controls, table);
+    }
+
     // Pagination
     if (this.paginate) {
-      const controls = components.pagination(this.paginate, this.rows().length);
+      const controls = components.pagination(this.paginate, this.filteredRows().length);
       if (this.paginate.position === 'bottom') this.table.appendChild(controls);
       else this.table.insertBefore(controls, table);
     }
@@ -55,11 +62,20 @@ export default class Tablr {
       this.render(element);
     });
 
-    element.querySelector('.tablr-page-jump-buttons').addEventListener('click', (event) => {
-      event.stopPropagation();
-      this.paginate.selectedPage = parseInt(event.target.innerText, 10) - 1;
-      this.render(element);
-    });
+    if (this.paginate) {
+      element.querySelector('.tablr-page-jump-buttons').addEventListener('click', (event) => {
+        event.stopPropagation();
+        this.paginate.selectedPage = parseInt(event.target.innerText, 10) - 1;
+        this.render(element);
+      });
+    }
+
+    if (this.filtering) {
+      element.querySelector('.tablr-filter input').addEventListener('input', (event) => {
+        this.filtering.inputValue = event.target.value;
+        this.render(element);
+      });
+    }
 
     return this;
   }
@@ -70,9 +86,16 @@ export default class Tablr {
         .map(column => column.displayValue(row[column.id]))));
   }
 
+  filteredRows() {
+    if (!this.filtering.inputValue) return this.rows();
+    const pattern = new RegExp(`.*(${this.filtering.inputValue}).*`, 'gi');
+    return this.rows()
+      .filter(row => pattern.test(row[0]));
+  }
+
   pages() {
-    if (!this.paginate) return this.rows();
-    return this.rows().reduce((pages, row, i) => {
+    if (!this.paginate) return this.filteredRows();
+    return this.filteredRows().reduce((pages, row, i) => {
       const pageIndex = Math.floor(i / this.paginate.selectedSize);
       if (!pages[pageIndex]) pages[pageIndex] = [row];
       else pages[pageIndex].push(row);
