@@ -3,8 +3,15 @@ function options(opts) {
     data: Array.isArray(opts) ? opts : [],
     columns: [],
     initialRender: true,
-    paginate: false,
     ...opts,
+    paginate: !opts.paginate ? false : {
+      size: [10, 25, 50, 100, 'All'],
+      sizeDefault: 25,
+      position: 'bottom',
+      textBefore: 'Show',
+      textAfter: 'entries',
+      ...opts.paginate,
+    },
   };
 }
 

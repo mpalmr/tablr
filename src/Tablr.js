@@ -13,13 +13,28 @@ export default class Tablr {
   }
 
   render() {
+    // Container
+    const containerElement = document.createElement('div');
+    containerElement.classList.add('tablr-container');
+
+    // Table
     const tableColumns = this.columns.map(column => ({
       label: column.label || column.id,
     }));
-    this.table = components.table.table(this.rows(), tableColumns);
-    if (this.paginate) this.table.appendChild(components.pagination());
+    const table = components.table.table(this.rows(), tableColumns);
+    containerElement.appendChild(table);
+
+    // Pagination
+    if (this.paginate) {
+      const controls = components.pagination(this.paginate);
+      if (this.paginate.position === 'bottom') containerElement.appendChild(controls);
+      else containerElement.insertBefore(controls, table);
+    }
+
+    // Add to DOM
     this.elements.forEach(element =>
-      element.appendChild(this.table.cloneNode(true)));
+      element.appendChild(containerElement.cloneNode(true)));
+
     return this;
   }
 
